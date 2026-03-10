@@ -29,12 +29,13 @@ caballeros = [
     Caballero(id=10, name="polo", material=Material.BRONCE, attack=23, constelation="epsesremalo"),
 ]
 
+
 @app.get("/showCaballero")
 def showCaballero():
     return caballeros
 
 @app.get("/fightCaballero")
-def fightCaballero():
+def fightCaballero(Caballero):
 
     caballero1 = random.choice(caballeros)
     caballero2 = random.choice(caballeros)
@@ -56,8 +57,22 @@ def fightCaballero():
     }
 
 
-#@app.get("/showConstelation")
+@app.get("/showConstelation")
+def showConstelation(caballero):
+    for caballero in caballeros:  
+        if caballero.name == caballero:  
+            return {
+                "name": caballero.name, 
+                "constelation": caballero.constelation
+                }
+    
+    return {"mensaje": "no se encontro"}
 
+@app.get("/showYourCaballero")
+def showYourCaballero(id: int):
 
-#@app.get("/showYourCaballero")
+    for caballero in caballeros:
+        if caballero.id == id:
+            return caballero
 
+    return {"mensaje": "el caballero no se encontro"}
